@@ -1,0 +1,34 @@
+h1 {
+    color: hotpink;
+    font-family: 'Josefin Sans', sans-serif;
+    text-align: center;
+    padding: 32px;
+}
+
+app-keyboard {
+    display: block;
+    margin-top: 24px;
+    position: fixed;
+    width: 100%;
+    bottom: 32px;
+}
+
+html,
+body {
+    height: 100%;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+}
+
+.game-state {
+    font-family: 'Josefin Sans', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 32px;
+    font-size: 24px;
+}
