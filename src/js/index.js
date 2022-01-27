@@ -8,8 +8,8 @@ const BACKSPACE = 'Backspace';
 const ENTER = 'Enter';
 const WORD_LENGTH = 5;
 const SUCCESS_MESSAGE = '✨ Congrats, you got it! ✨';
-const FAILURE_MESSAGE =  'Better luck tomorrow 🤞';
-const ALPHABETS = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+const FAILURE_MESSAGE = 'Better luck tomorrow 🤞';
+const ALPHABETS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 const NO_OF_TRIES = 5;
 
 const GameStateEnum = {
@@ -17,23 +17,27 @@ const GameStateEnum = {
     LOST: 'LOST'
 };
 
- const LetterStateEnum = {
-     CORRECT: 'C',
-     PRESENT: 'P',
-     ABSENT: 'A'
- }
+const LetterStateEnum = {
+    CORRECT: 'C',
+    PRESENT: 'P',
+    ABSENT: 'A'
+}
 
 const testWord = "SLICE"
 
 class Game {
     constructor() {
         this.gameOver = false;
+        this.wordArray = [];
         this.word = "";
         this.selectedRow = 0;
         this.endGameDom = document.querySelector(".game-state");
         this.gameRows = document.querySelectorAll('game-row');
+        this.alphabetStateArray = ','.repeat(25).split(',');
 
-        document.querySelector('app-keyboard').addEventListener('keyPress', (ev)=>{
+        this.keyboard = document.querySelector('app-keyboard');
+
+        this.keyboard.addEventListener('keyPress', (ev) => {
             this.handleKeyPress(ev.detail.key);
         })
         document.addEventListener('keydown', (event) => {
@@ -43,7 +47,7 @@ class Game {
 
     handleKeyPress(key) {
         if (this.gameOver) return;
-        switch (key){
+        switch (key) {
             case BACKSPACE:
                 this.handleBackspace();
                 break
@@ -59,35 +63,41 @@ class Game {
     handleAlphabet(key) {
         if (this.word.length < WORD_LENGTH) {
             const letter = key.toUpperCase();
-            if(ALPHABETS.indexOf(letter) > -1) {
+            if (ALPHABETS.indexOf(letter) > -1) {
                 this.word += letter;
             }
         }
     }
 
     handleEnter() {
-        if(this.word.length < WORD_LENGTH) {
+        if (this.word.length < WORD_LENGTH) {
             console.log("Not enough chars")
-        }else {
+        } else {
             const guessArr = [];
-            for(let i=0;i<this.word.length;i++) {
-                if(this.word[i] === testWord[i]) {
+            for (let i = 0; i < this.word.length; i++) {
+                const indexOfLetter = ALPHABETS.indexOf(this.word[i]);
+                if (this.word[i] === testWord[i]) {
                     guessArr.push(LetterStateEnum.CORRECT);
-                }else if(testWord.indexOf(this.word[i]) !== -1) {
+                    this.alphabetStateArray[indexOfLetter] = LetterStateEnum.CORRECT;
+                } else if (testWord.indexOf(this.word[i]) !== -1) {
                     guessArr.push(LetterStateEnum.PRESENT);
-                }else {
+                    this.alphabetStateArray[indexOfLetter] = LetterStateEnum.PRESENT;
+                } else {
                     guessArr.push(LetterStateEnum.ABSENT);
+                    this.alphabetStateArray[indexOfLetter] = LetterStateEnum.ABSENT;
                 }
             }
             this.gameRows[this.selectedRow].setAttribute("state", guessArr.join(','));
             this.selectedRow++;
+            this.wordArray.push(this.word);
+            this.keyboard.setAttribute('keyState', this.alphabetStateArray.join(","));
             this.word = '';
-            if(guessArr.join("") === LetterStateEnum.CORRECT.repeat(NO_OF_TRIES)) {
+            if (guessArr.join("") === LetterStateEnum.CORRECT.repeat(NO_OF_TRIES)) {
                 this.endGame(GameStateEnum.WON);
                 return;
             }
 
-            if(this.selectedRow === NO_OF_TRIES + 1) {
+            if (this.selectedRow === NO_OF_TRIES + 1) {
                 this.endGame(GameStateEnum.LOST);
             }
         }
@@ -106,7 +116,7 @@ class Game {
     }
 
     updateGameRow(row, word) {
-        if(this.gameOver) return;
+        if (this.gameOver) return;
         document.querySelectorAll('game-row')[row].setAttribute("word", word);
     }
 }
