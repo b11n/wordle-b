@@ -9,6 +9,8 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "cssnano": "^4.1.11",
         "parcel": "^2.2.1"
-    }
+    },
+    "browserslist": "> 0.5%, last 2 versions, not dead"
 }

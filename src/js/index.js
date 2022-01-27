@@ -23,7 +23,7 @@ const GameStateEnum = {
      ABSENT: 'A'
  }
 
-const testWord = "CLOTH"
+const testWord = "SLICE"
 
 class Game {
     constructor() {
@@ -84,6 +84,7 @@ class Game {
             this.word = '';
             if(guessArr.join("") === LetterStateEnum.CORRECT.repeat(NO_OF_TRIES)) {
                 this.endGame(GameStateEnum.WON);
+                return;
             }
 
             if(this.selectedRow === NO_OF_TRIES + 1) {

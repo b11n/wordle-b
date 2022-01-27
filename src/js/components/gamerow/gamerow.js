@@ -93,6 +93,13 @@ class GameRow extends HTMLElement {
         .box.absent {
             
         }
+
+        @media only screen and (max-height: 700px) {
+            .box {
+                height: 45px;
+                width: 45px;
+            }
+          }
       `;
         this.shadowRoot.appendChild(style);
     }
