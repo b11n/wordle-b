@@ -5,9 +5,27 @@ h1 {
     padding: 32px;
 }
 
-@media only screen and (max-height: 700px) {
+body > canvas {
+    position: absolute;
+    top: 0;
+}
+
+body.fireworks {
+    background: #000;
+    transition: all .5s ease-in-out;
+}
+
+@media only screen and (max-height: 820px) {
     h1 {
         margin: 0;
+
+    }
+  }
+  
+  @media only screen and (max-height: 600px) {
+    h1 {
+        margin: 0;
+        padding: 12px; 
     }
   }
 
@@ -37,4 +55,5 @@ body {
     justify-content: center;
     margin-top: 32px;
     font-size: 24px;
+    color: #fff;
 }

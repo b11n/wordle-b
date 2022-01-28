@@ -94,7 +94,7 @@ class GameRow extends HTMLElement {
             
         }
 
-        @media only screen and (max-height: 700px) {
+        @media only screen and (max-height: 820px) {
             .box {
                 height: 45px;
                 width: 45px;

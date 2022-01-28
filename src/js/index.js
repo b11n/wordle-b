@@ -1,5 +1,6 @@
 import GameRow from './components/gamerow/gamerow';
 import Keyboard from './components/keyboard/keybaord';
+import { Fireworks } from 'fireworks-js'
 
 customElements.define('game-row', GameRow);
 customElements.define('app-keyboard', Keyboard);
@@ -23,7 +24,7 @@ const LetterStateEnum = {
     ABSENT: 'A'
 }
 
-const testWord = "SLICE"
+const testWord = "BROWN"
 
 class Game {
     constructor() {
@@ -106,6 +107,29 @@ class Game {
     endGame(gameState) {
         this.gameOver = true;
         this.gameState = gameState;
+
+        if(gameState === GameStateEnum.WON){
+            
+        }
+
+        if (gameState === GameStateEnum.WON) {
+            document.body.classList.add("fireworks");
+            const fireworks = new Fireworks(document.body, {
+                sound: {
+                    enabled: true,
+                    files: [
+                        "https://fireworks.js.org/sounds/explosion0.mp3",
+                        "https://fireworks.js.org/sounds/explosion1.mp3",
+                        "https://fireworks.js.org/sounds/explosion2.mp3"
+                    ],
+                }
+            });
+            fireworks.start();
+            setTimeout(() => {
+                fireworks.stop();
+            }, 10000);
+
+        }
         this.endGameDom.textContent = this.gameState === GameStateEnum.WON ? SUCCESS_MESSAGE : FAILURE_MESSAGE;;
     }
 

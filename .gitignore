@@ -12,6 +12,8 @@ firebase-debug.*.log*
 .cache/
 .parcel-cache/
 
+scripts/
+
 # Firebase config
 
 # Uncomment this if you'd like others to create their own Firebase project.
