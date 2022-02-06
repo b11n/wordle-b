@@ -8,6 +8,10 @@
     ],
     "rewrites": [
       {
+        "source": "/getWord",
+        "function": "getWord"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
