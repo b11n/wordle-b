@@ -24,7 +24,7 @@ const LetterStateEnum = {
     ABSENT: 'A'
 }
 
-const testWord = "STAMP";
+const testWord = "LIGHT";
 
 class Game {
     constructor() {
